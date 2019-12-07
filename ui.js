@@ -1,5 +1,3 @@
-// const plaid = require('plaid');
-
 // const plaidClient = new plaid.Client(client_id, secret, public_key, plaid_env, {version: '2018-05-22'});
 /* global exports */
 
