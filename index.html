@@ -1,0 +1,39 @@
+<html>
+    <head>
+      <title>plaido config</title>
+      <style>
+	/* https://stackoverflow.com/questions/9686538/align-labels-in-form-next-to-input */
+	fieldset div {
+	  display:grid;
+	  grid-template-columns: max-content max-content;
+	  grid-gap:5px;
+	}
+	fieldset div label       { text-align:right; }
+	fieldset div label:after { content: ":"; }
+      </style>
+    </head>
+    <body>
+        <h1>plaido config</h1>
+
+        <form id="config">
+	  <fieldset>
+	    <legend>Plaid API Config</legend>
+	    <div>
+              <label for="client_id">Client ID</label>
+              <input name="client_id" id="client_id"/>
+	      <label for="secret">Secret</label>
+	      <!-- mitigate shoulder-surfing -->
+              <input name="secret" id="secret" type="password"/>
+	      <label for="public_key">Public Key</label>
+              <input name="public_key" id="public_key" />
+	      <label for="plaid_env">Plaid Environment</label>
+	      <select name="plaid_env" id="plaid_env">
+		<option>development</option>
+	      </select>
+	    </div>
+	    <button>Ok</button>
+        </form>
+
+	<script src="bundle.js"></script>
+    </body>
+</html>
