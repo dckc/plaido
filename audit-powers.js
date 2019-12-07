@@ -1,5 +1,55 @@
 
-const waivers = ['console', 'console.log', 'console.error', 'console.trace', 'console.warn', 'define'];
+const waivers = {
+  '__all__': [
+    // presumably equivalent to modules
+    'define', 
+
+    // provided correctness doesn't depend on output, console.log
+    // is a reasonable exception to ocap discipline. There is
+    // a forgery risk. console.log output should be marked as
+    // such so that users aren't confused.
+    'console.log',
+    // seems to be used a la `typeof console !== 'undefined'`:
+    'console',
+
+    // a little more leeway...
+    'console.warn',
+  ],
+
+  'util': ['console.error', 'console.trace'],
+  'util-deprecate': ['console.trace'],
+ 
+  process: [
+    // nextTick() is equivalent to promises, yes? basically?
+    'clearInterval', 'setInterval',
+    // this is somewhat like clock access, but let's
+    // presume it's really just used for nextTick() sorts of thing
+    'clearTimeout', 'setTimeout',
+  ],
+  'timers-browserify': [
+    'clearInterval', 'setInterval',
+    'clearTimeout', 'setTimeout',
+  ],
+  'vm-browserify': [
+    'document.body.appendChild',
+    'document.body.removeChild',
+    'document.createElement'
+  ],
+
+  'bluebird': [
+    'document.createElement',
+    'document.createEvent',
+    'document.documentElement',
+    'navigator', 'cordova',
+  ],
+
+  // typo. fixed in 509c1b9
+  'ecc-jsbn': [ 'q' ],
+
+  // feature detection really is ambient authority; I'm getting a little far afield here...
+  'jsbn': [ 'navigator'],
+};
+
 
 async function main(argv, { fsp }) {
   const [config] = argv.slice(2);
@@ -8,9 +58,11 @@ async function main(argv, { fsp }) {
   const data = JSON.parse(await fsp.readFile(config));
   for (const name of Object.keys(data.resources)) {
     const globals = [];
-    walk(data.resources, name, detail => {
+    walk(data.resources, name, (detail, dep) => {
+      const ok = [...(waivers[dep] || []), ...waivers['__all__']];
       for (const [g, a] of Object.entries(detail.globals || {})) {
-	if (waivers.includes(g)) { continue; }
+	if (ok.includes(g)) { continue; }
+	console.log(name, 'dep:', dep, 'uses', g);
 	globals[g] = mix(globals[g], a);
       }
     });
@@ -25,7 +77,7 @@ function walk(resources, name, f) {
   function recur(n) {
     const detail = resources[n];
     if (!detail) { return; }
-    f(detail);
+    f(detail, n);
     seen.add(n);
     for (const child of Object.keys(detail.packages || {})) {
       if (!seen.has(child)) {
