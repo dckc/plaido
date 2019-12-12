@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "plaid": "^4.3.0"
+  },
     "browserify": "^16.5.0",
     "lavamoat-browserify": "^3.0.5",
-    "plaid": "^4.3.0",
     "serve": "^11.2.0"
   },
   "devDependencies": {},
