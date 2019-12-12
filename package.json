@@ -12,9 +12,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "lavamoat": "browserify index.js --plugin [ lavamoat-browserify --writeAutoConfig --config ./lavamoat-config.json ] > /dev/null",
-    "build": "browserify index.js --plugin [ lavamoat-browserify --config ./lavamoat-config.json ] > bundle.js",
-    "start": "npm run build && serve .",
+    "lavamoat": "AUTOCONFIG=1 node ./build.js",
+    "build": "browserify index.js > public/bundle.js",
+    "start": "node ./build.js && serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dan Connolly",
