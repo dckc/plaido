@@ -21,8 +21,10 @@ const bundler = browserify(['./index.js'], {
 
 // remove html comments that SES is alergic to
 const removeHtmlComment = makeStringTransform('remove-html-comment', { excludeExtension: ['.json'] }, (content, _, cb) => {
-  const result = content.split('-->').join('-- >')
-  cb(null, result)
+  const hideComments = content.split('-->').join('-- >')
+  // bluebird uses eval, sorta
+  const hideEval = hideComments.split(' eval(').join(' (eval)(')
+  cb(null, hideEval)
 })
 bundler.transform(removeHtmlComment, { global: true })
 
