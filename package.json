@@ -6,13 +6,16 @@
   "dependencies": {
     "plaid": "^4.3.0"
   },
+  "devDependencies": {
+    "deps-dump": "^1.1.0",
     "browserify": "^16.5.0",
     "lavamoat-browserify": "^3.0.5",
-    "serve": "^11.2.0"
+    "serve": "^11.2.0",
+    "sesify-viz": "^3.0.9"
   },
-  "devDependencies": {},
   "scripts": {
     "lavamoat": "AUTOCONFIG=1 node ./build.js",
+    "viz": "sesify-viz --config ./lavamoat-config.json --deps ./deps.json --dest viz.html",
     "build": "browserify index.js > public/bundle.js",
     "start": "node ./build.js && serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
