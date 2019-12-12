@@ -7,17 +7,18 @@
     "plaid": "^4.3.0"
   },
   "devDependencies": {
-    "deps-dump": "^1.1.0",
     "browserify": "^16.5.0",
+    "browserify-transform-tools": "^1.7.0",
+    "deps-dump": "^1.1.0",
     "lavamoat-browserify": "^3.0.5",
     "serve": "^11.2.0",
     "sesify-viz": "^3.0.9"
   },
   "scripts": {
-    "lavamoat": "AUTOCONFIG=1 node ./build.js",
+    "lavamoat": "browserify index.js --plugin [ lavamoat-browserify --writeAutoConfig --config ./lavamoat-config.json ] > /dev/null",
+    "build": "browserify index.js --global-transform ./tweakSrc.js --plugin [ lavamoat-browserify --config ./lavamoat-config.json ] > bundle.js",
+    "start": "npm run build && serve .",
     "viz": "sesify-viz --config ./lavamoat-config.json --deps ./deps.json --dest viz.html",
-    "build": "browserify index.js > public/bundle.js",
-    "start": "node ./build.js && serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dan Connolly",
