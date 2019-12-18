@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "patch-package": "^6.2.0",
     "plaid": "^4.3.0"
   },
   "devDependencies": {
