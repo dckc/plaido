@@ -1,6 +1,9 @@
-const { makeStringTransform } = require('browserify-transform-tools')
-const fs = require('fs')
-const browserify = require('browserify')
+/* global require */
+
+const { makeStringTransform } = require('browserify-transform-tools');
+const fs = require('fs');
+const browserify = require('browserify');
+const browserifyBuiltins = require('browserify/lib/builtins');
 
 // configure LavaMoat
 const lavamoatOpts = {
@@ -12,8 +15,14 @@ if (process.env.AUTOCONFIG) {
   lavamoatOpts.writeAutoConfig = true
 }
 
+const builtins = {
+  ...browserifyBuiltins,
+  bluebird: require.resolve('./bluebird.js')
+};
+
 // configure browserify
 const bundler = browserify(['./index.js'], {
+  builtins,
   plugin: [
     ['lavamoat-browserify', lavamoatOpts]
   ]

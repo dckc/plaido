@@ -16,9 +16,9 @@
     "sesify-viz": "^3.0.9"
   },
   "scripts": {
-    "lavamoat": "browserify index.js --plugin [ lavamoat-browserify --writeAutoConfig --config ./lavamoat-config.json ] > /dev/null",
-    "build": "browserify index.js --global-transform ./tweakSrc.js --plugin [ lavamoat-browserify --config ./lavamoat-config.json ] > bundle.js",
-    "start": "npm run build && serve .",
+    "postinstall": "patch-package",
+    "lavamoat": "AUTOCONFIG=1 node ./build.js",
+    "start": "node ./build.js && serve .",
     "viz": "sesify-viz --config ./lavamoat-config.json --deps ./deps.json --dest viz.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
