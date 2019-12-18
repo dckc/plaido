@@ -66,28 +66,6 @@
         "tweetnacl": true
       }
     },
-    "bluebird": {
-      "globals": {
-        "CustomEvent": true,
-        "Event": true,
-        "MutationObserver": true,
-        "P": "write",
-        "_dereq_": true,
-        "clearTimeout": true,
-        "console": true,
-        "cordova": true,
-        "define": true,
-        "document.createElement": true,
-        "document.createEvent": true,
-        "document.documentElement": true,
-        "navigator": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "process": true,
-        "timers-browserify": true
-      }
-    },
     "bn.js": {
       "packages": {
         "browser-resolve": true
@@ -438,7 +416,7 @@
     },
     "plaid": {
       "packages": {
-        "bluebird": true,
+        "<root>": true,
         "ramda": true,
         "request": true,
         "timers-browserify": true
