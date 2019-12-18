@@ -2,3 +2,7 @@
 .envrc
 node_modules/
 bundle.js
+
+# deps visualization dashboard
+deps.json
+viz

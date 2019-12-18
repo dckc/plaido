@@ -24,7 +24,8 @@ const builtins = {
 const bundler = browserify(['./index.js'], {
   builtins,
   plugin: [
-    ['lavamoat-browserify', lavamoatOpts]
+    ['lavamoat-browserify', lavamoatOpts],
+    ['deps-dump', { filename: './deps.json' }],
   ]
 })
 
