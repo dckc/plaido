@@ -19,7 +19,7 @@
     "postinstall": "patch-package",
     "lavamoat": "AUTOCONFIG=1 node ./build.js",
     "start": "node ./build.js && serve .",
-    "viz": "sesify-viz --config ./lavamoat-config.json --deps ./deps.json --dest viz.html",
+    "viz": "node ./build.js && sesify-viz --config ./lavamoat-config.json --deps ./deps.json --dest viz",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dan Connolly",
