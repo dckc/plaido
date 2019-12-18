@@ -3,7 +3,7 @@
 
 // ISSUE: does FormData get all its authority from the form argument? or does it have some of its own?
 /* global FormData */
-exports = Object.freeze({ startUI });
+module.exports = Object.freeze({ startUI });
 
 function startUI({ getForm, store }) {
   const form = getForm('config');
